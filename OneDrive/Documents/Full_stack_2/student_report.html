@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Report</title>
+    
+</head>
+<body>
+    <header>
+        <h1 title="School name displayed using h1">Greenfield High School</h1>
+        <p class="meta">Student: Jane Doe | Class: 10-B | Roll No: 23</p>
+    </header>
+
+    <main>
+        <table aria-describedby="report-desc">
+            <caption id="report-desc">Marks obtained in five subjects (out of 100)</caption>
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Subject</th>
+                    <th scope="col" title="Maximum marks for each subject">Max Marks</th>
+                    <th scope="col">Marks Obtained</th>
+                    <th scope="col" title="Grade can be added later">Grade</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mathematics</td>
+                    <td>100</td>
+                    <td>88</td>
+                    <td>A</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>English</td>
+                    <td>100</td>
+                    <td>82</td>
+                    <td>B+</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Science</td>
+                    <td>100</td>
+                    <td>91</td>
+                    <td>A+</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>Social Studies</td>
+                    <td>100</td>
+                    <td>76</td>
+                    <td>B</td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>Computer Science</td>
+                    <td>100</td>
+                    <td>94</td>
+                    <td>A+</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td rowspan="2" colspan="2">Summary</td>
+                    <td>Max Total</td>
+                    <td>500</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Total Obtained</td>
+                    <td colspan="2">430</td>
+                </tr>
+                <tr>
+                    <td colspan="5" title="Percentage shown as text only">Percentage: 86% (Text only, no calculation performed)</td>
+                </tr>
+            </tfoot>
+        </table>
+    </main>
+</body>
+</html>
