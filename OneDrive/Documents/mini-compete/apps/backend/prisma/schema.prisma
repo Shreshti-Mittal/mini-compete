@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  email         String         @unique
+  password      String
+  role          Role           @default(PARTICIPANT)
+  competitions  Competition[]  @relation("OrganizerCompetitions")
+  registrations Registration[]
+  mailbox       MailBox[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Competition {
+  id           String         @id @default(uuid())
+  title        String
+  description  String
+  tags         String[]
+  capacity     Int
+  regDeadline  DateTime
+  organizerId  String
+  organizer    User           @relation("OrganizerCompetitions", fields: [organizerId], references: [id])
+  registrations Registration[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Registration {
+  id            String      @id @default(uuid())
+  userId        String
+  competitionId String
+  registeredAt  DateTime    @default(now())
+  status        RegStatus   @default(CONFIRMED)
+  user          User        @relation(fields: [userId], references: [id])
+  competition   Competition @relation(fields: [competitionId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@unique([userId, competitionId])
+  @@index([competitionId])
+  @@index([userId])
+}
+
+enum Role {
+  PARTICIPANT
+  ORGANIZER
+}
+
+enum RegStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+model MailBox {
+  id        String   @id @default(uuid())
+  userId    String
+  to        String
+  subject   String
+  body      String   @db.Text
+  sentAt    DateTime
+  read      Boolean  @default(false)
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([sentAt])
+}
+
+model FailedJob {
+  id        String   @id @default(uuid())
+  jobType   String
+  payload   Json
+  error     String   @db.Text
+  attempts  Int      @default(1)
+  createdAt DateTime @default(now())
+}
+
